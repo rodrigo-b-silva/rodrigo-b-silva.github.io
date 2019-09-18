@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>API Flickr</title>
+    <style>
+        .images {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4">Exercicio API Flickr</h1>
+        <div class="row">
+            <div class="col-md-4"><img src="" alt="" class="images" data-fotos></div>
+            <div class="col-md-4"><img src="" alt="" class="images" data-fotos></div>
+            <div class="col-md-4"><img src="" alt="" class="images" data-fotos></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><img src="" alt="" class="images" data-fotos></div>
+            <div class="col-md-4"><img src="" alt="" class="images" data-fotos></div>
+            <div class="col-md-4"><img src="" alt="" class="images" data-fotos></div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            const url = 'https://api.flickr.com/services/feeds/photos_public.gne?tags=programmer&format=json&jsoncallback=trataDados&tagmode=any';
+            $.ajax({
+                url: url,
+                dataType : "jsonp"
+            })
+            .done(function(res){ console.log(res) })
+            .fail(function(err){ console.log(err) })
+        });
+        function trataDados(dados) {
+            let fotos = dados.items;
+            let imagesContainers = $('[data-fotos]');
+            for(let i=0; i<6; i++)
+                imagesContainers[i].setAttribute('src', fotos[i].media.m)
+        }
+    </script>
+</body>
+</html>
